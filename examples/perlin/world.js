@@ -62,6 +62,5 @@ PROJECT.World.prototype.tick = function(d) {
 window.onload = function() {
 	this.world = new PROJECT.World();
 	this.world.gui();
-//	this.world.once();
 	this.world.start();
 }
