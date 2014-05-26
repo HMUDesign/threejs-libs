@@ -8,10 +8,6 @@ PROJECT.World = function() {
 		look: true,
 	});
 	
-	this.light = new THREE.DirectionalLight(0xffffff);
-	this.light.position.set(0, 0, 1);
-	this.add(this.light);
-	
 	this.on('update', function(e) {
 		this.tick(e.delta);
 	});
@@ -46,11 +42,6 @@ PROJECT.World.prototype = Object.create(HMU.World.prototype);
 
 PROJECT.World.prototype.gui = function() {
 	this.gui = new dat.GUI();
-	
-	var light = this.gui.addFolder('Light');
-	light.add(this.light.position, 'x', -100, 100);
-	light.add(this.light.position, 'y', -100, 100);
-	light.add(this.light.position, 'z', -100, 100);
 	
 	var speed = this.gui.addFolder('Speed');
 	speed.add(this.speed, 'x', -1, 1);
