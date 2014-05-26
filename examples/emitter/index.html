@@ -38,9 +38,9 @@
 		gui.add(world.emitter.config.particle, 'mass', 1, 5);
 		
 		var velocity = gui.addFolder('Velocity');
-		velocity.add(world.emitter.config.velocity.value, 'x', 0, 50);
-		velocity.add(world.emitter.config.velocity.value, 'y', 0, 50);
-		velocity.add(world.emitter.config.velocity.value, 'z', 0, 50);
+		velocity.add(world.emitter.config.velocity.base, 'x', 0, 50);
+		velocity.add(world.emitter.config.velocity.base, 'y', 0, 50);
+		velocity.add(world.emitter.config.velocity.base, 'z', 0, 50);
 		
 		var velocitySpread = gui.addFolder('Velocity Spread');
 		velocitySpread.add(world.emitter.config.velocity.spread, 'x', 0, 50);
