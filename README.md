@@ -1,7 +1,7 @@
 Three.JS Libraries by HMU
 =========================
 
-This is a small collection of threejs libraries, including my own and third party dependencies.
+This is a small collection of threejs libraries, including my own and third party dependencies. All the examples can be seen live at [gh-pages](http://hmudesign.github.io/threejs-libs).
 
 World
 -----
