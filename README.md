@@ -6,7 +6,7 @@ This is a small collection of threejs libraries, including my own and third part
 World
 -----
 
-This is the base of my libraries (though not all require it). All the examples use this. It can be used directly (as in the emitter example) or as a base class (as in the animator example).
+This is the base of my libraries (though not all require it). All the examples use this. It can be used directly (as in the [emitter example](http://hmudesign.github.io/threejs-libs/examples/emitter)) or as a base class (as in the [animator example](http://hmudesign.github.io/threejs-libs/examples/animator)).
 
 Utils
 -----
@@ -27,7 +27,7 @@ Provides:
 Animator
 --------
 
-The animator library can be used standalone. The usage is fairly straight-forward and can be seen in the animator example.
+The animator library can be used standalone. The usage is fairly straight-forward and can be seen in the [animator example](http://hmudesign.github.io/threejs-libs/examples/animator).
 
 Provides:
 * `HMU.Animator()` - Constructor for an animations manager.
@@ -37,7 +37,7 @@ Provides:
 Emitter
 -------
 
-The emitter library depends on `HMU.Option`, provided by Utils. The easiest way to see how it works is to play with the emitter example.
+The emitter library depends on `HMU.Option`, provided by Utils. The easiest way to see how it works is to play with the [emitter example](http://hmudesign.github.io/threejs-libs/examples/emitter).
 
 Provides:
 * `HMU.Emitter(options)` - Constructor for managing an object emitter.
@@ -45,7 +45,7 @@ Provides:
 Perlin
 ------
 
-The perlin library can be used standalone. The usage is fairly straight-forward and can be seen in the perlin example. It is an early beta and has not been optimized.
+The perlin library can be used standalone. The usage is fairly straight-forward and can be seen in the [perlin example](http://hmudesign.github.io/threejs-libs/examples/perlin). It is an early beta and has not been optimized.
 
 Provides:
 * `HMU.Perlin(input)` - Returns the scalar value for a given `THREE.Vector3`.
