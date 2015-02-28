@@ -2,14 +2,12 @@ html, body {
 	display: block;
 	margin: 0;
 	padding: 0;
-	height: 100%;
 }
 
 body {
 	color: white;
 	background: gray;
 	font-family: sans-serif;
-	height: 300%;
 }
 
 canvas {
