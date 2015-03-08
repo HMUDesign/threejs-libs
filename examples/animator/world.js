@@ -3,14 +3,12 @@
  */
 PROJECT.World = function() {
 	HMU.World.call(this, {
-		fixed: true,
 		camera: new THREE.Vector3(0, 0, 3),
 	});
 	
 	this.animator = new HMU.Animator();
 	
 	this.build();
-	this.start();
 	
 	this.on('update', function(e) {
 		this.animator.tick(e.time);

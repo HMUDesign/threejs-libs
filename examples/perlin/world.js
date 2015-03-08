@@ -3,10 +3,10 @@
  */
 PROJECT.World = function() {
 	HMU.World.call(this, {
-		fixed: true,
 		camera: new THREE.Vector3(0,-3,3),
-		look: true,
 	});
+	
+	this.camera.lookAt(this.scene.position);
 	
 	this.on('update', function(e) {
 		this.tick(e.delta);
@@ -62,5 +62,4 @@ PROJECT.World.prototype.tick = function(d) {
 window.onload = function() {
 	this.world = new PROJECT.World();
 	this.world.gui();
-	this.world.start();
 }

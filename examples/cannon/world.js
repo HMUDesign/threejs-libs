@@ -7,7 +7,6 @@ PROJECT.World = function() {
 	});
 	
 	this.build();
-	this.start();
 	
 	this.frames = 0;
 	this.on('update', function(e) {

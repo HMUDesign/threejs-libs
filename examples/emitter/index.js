@@ -1,6 +1,5 @@
 var world = new HMU.World({
 	camera: new THREE.Vector3(0,0,50),
-	fixed: true,
 });
 
 world.coin = new THREE.Mesh(
@@ -37,7 +36,5 @@ velocitySpread.add(world.emitter.config.velocity.spread, 'z', 0, 50);
 world.on('update', function(e) {
 	world.emitter.tick(e.delta);
 });
-
-world.start();
 
 world.renderer.domElement.addEventListener('mousedown', HMU.Emitter.prototype.reset.bind(world.emitter), false );

@@ -9,7 +9,7 @@ PROJECT.Boundary = function(position, rotation) {
 	this.setCannon();
 }
 
-PROJECT.Boundary.geometry = new THREE.PlaneGeometry(20,1);
+PROJECT.Boundary.geometry = new THREE.PlaneBufferGeometry(20,1);
 PROJECT.Boundary.material = new THREE.MeshNormalMaterial();
 PROJECT.Boundary.cannon_shape = new CANNON.Plane();
 PROJECT.Boundary.cannon_mat = new CANNON.Material();

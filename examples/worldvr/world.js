@@ -13,8 +13,6 @@ PROJECT.World = function() {
 	this.on('update', function(e) {
 		this.item.rotation.y += Math.PI / 8 * e.delta;
 	});
-	
-	this.start();
 }
 
 PROJECT.World.prototype = Object.create(HMU.World.prototype);
