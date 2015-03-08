@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>Perlin Noise</title>
+	<script type="text/javascript" src="perlin.js"></script>
+	
+	<style>
+		#map { width:513px; height:513px; }
+		.tile { float:left; width:1px; height:1px; }
+	</style>
+	
+	<script type="text/javascript">
+		window.onload = function() {
+			var canvas = document.getElementById("map");
+			canvas.width = canvas.height = 512;
+			var context = canvas.getContext('2d');
+			
+			var color0 = [255, 255, 255];
+			var color1 = [255,   0,   0];
+			var color2 = [  0, 255,   0];
+			var color3 = [  0, 0,   255];
+			
+			var z = 0;
+			
+			function draw() {
+				var image = context.createImageData(canvas.width, canvas.height);
+				
+				for(var y = 0; y < canvas.height; y++) {
+					for(var x = 0; x < canvas.width; x++) {
+						var value = PerlinNoise.noise3tess(x / 128, y / 128, z / 128, 2,2, 5, 4);
+						value = (value + 1) / 2;
+						
+						var v = value;
+						var a = value * value;
+						var b = 2 * value * (1 - value);
+						var c = (1 - value) * (1 - value);
+						
+						var i = y * canvas.width + x;
+						image.data[i * 4 + 0] = Math.floor(v * color0[0]);
+						image.data[i * 4 + 1] = Math.floor(v * color0[1]);
+						image.data[i * 4 + 2] = Math.floor(v * color0[2]);
+/*
+						image.data[i * 4 + 0] = Math.floor(a * color1[0] + b * color2[0] + c * color3[0]);
+						image.data[i * 4 + 1] = Math.floor(a * color1[1] + b * color2[1] + c * color3[1]);
+						image.data[i * 4 + 2] = Math.floor(a * color1[2] + b * color2[1] + c * color3[2]);
+*/
+						image.data[i * 4 + 3] = 255;
+					}
+				}
+				
+				context.putImageData(image, 0, 0);
+			}
+			
+			requestAnimationFrame(function loop() {
+//				requestAnimationFrame(loop)
+				
+				draw();
+				z += Math.max(canvas.width, canvas.height) / 64;
+			})
+		}
+	</script>
+</head>
+<body>
+
+<canvas id="map"></canvas>
+
+</body>
+</html>
