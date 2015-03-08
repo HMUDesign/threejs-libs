@@ -1,0 +1,127 @@
+
+
+<html>
+<head>
+	<title>Mobius Strip</title>
+	<link rel="stylesheet" type="text/css" href="../../lib/hmu/style.css">
+	<script type="text/javascript" src="../../lib/dat.gui.min.js"></script>
+	<script type="text/javascript" src="../../lib/stats.min.js"></script>
+	<script type="text/javascript" src="../../lib/three.js"></script>
+	<script type="text/javascript" src="../../lib/hmu/world.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		var Mobius = function(r, w, c) {
+			return function(u,v) {
+				u = u * 2 * Math.PI;
+				v = 2 * v - 1;
+				
+				v *= w;
+				
+				return new THREE.Vector3(
+					r * (1 + v / 2 * Math.cos(u / 2 * c)) * Math.cos(u),
+					r * (1 + v / 2 * Math.cos(u / 2 * c)) * Math.sin(u),
+					r * (v / 2) * Math.sin(u / 2 * c)
+				);
+			}
+		};
+		
+		var Klein = function(r) {
+			return function(u,v) {
+				u = u * 2 * Math.PI;
+				v = v * 2 * Math.PI;
+				
+				return new THREE.Vector3(
+					(1 + r + Math.cos(u / 2) * Math.sin(v) - Math.sin(u / 2) * Math.sin(2 * v)) * Math.cos(u),
+					(1 + r + Math.cos(u / 2) * Math.sin(v) - Math.sin(u / 2) * Math.sin(2 * v)) * Math.sin(u),
+					Math.sin(u / 2) * Math.sin(v) + Math.cos(u / 2) * Math.sin(2 * v)
+				);
+			}
+		};
+		
+		var Boy = function(k) {
+			return function(u,v) {
+				u = u * Math.PI;
+				v = v * Math.PI;
+				
+				var K = Math.cos(u) / (Math.sqrt(2) - k * Math.sin(2 * u) * Math.sin(3 * v));
+				
+				return new THREE.Vector3(
+					K * (Math.cos(u) * Math.cos(2 * v) + Math.sqrt(2) * Math.sin(u) * Math.cos(v)),
+					K * (Math.cos(u) * Math.sin(2 * v) - Math.sqrt(2) * Math.sin(u) * Math.sin(v)),
+					K * Math.cos(u) - 1
+				);
+			}
+		};
+		
+		var CrossCap = function(r) {
+			return function(u,v) {
+				u = u * Math.PI * 2;
+				v = v * Math.PI * 2;
+				
+				return new THREE.Vector3(
+					r * (1 + Math.cos(v)) * Math.cos(u),
+					r * (1 + Math.cos(v)) * Math.sin(u),
+					r * Math.tanh(Math.PI - u) * Math.sin(v)
+				);
+			}
+		};
+		
+		var Disc = function(r) {
+			return function(u,v) {
+				u = u * Math.PI * 2;
+				
+				return new THREE.Vector3(
+					r * v * Math.cos(2 * u),
+					r * v * Math.sin(2 * u),
+					r * v * Math.cos(u)
+				);
+			}
+		};
+		
+		var Sphere = function(r) {
+			return function(u,v) {
+				u = u * Math.PI * 2;
+				v = v * Math.PI;
+				
+				return new THREE.Vector3(
+					r * Math.cos(u) * Math.sin(v),
+					r * Math.sin(u) * Math.sin(v),
+					r * Math.cos(v)
+				);
+			}
+		};
+		
+		var world = new HMU.World({
+			fixed: true,
+			camera: new THREE.Vector3(0, 0, 5),
+		});
+		
+		world.light = new THREE.DirectionalLight(0xffffff);
+		world.light.position.set(0, 0, 100);
+		world.add(world.light);
+//		var geometry = new THREE.ParametricGeometry(Boy(1), 250, 250);
+		var geometry = new THREE.TorusKnotGeometry(2, .25, 256, 16, 3, 5, 1);
+		
+		var material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+		material.side = 2;
+		material.shininess = 100;
+		
+		world.mesh = new THREE.Mesh(geometry, material);
+		world.add(world.mesh);
+		
+		world.mesh.rotation.x = -Math.PI / 2;
+		world.on('update', function(e) {
+			world.mesh.rotation.z += e.delta;
+		});
+		
+		var gui = new dat.GUI();
+		var rotation = gui.addFolder('Rotation');
+		rotation.add(world.mesh.rotation, 'x', -Math.PI, Math.PI);
+		rotation.add(world.mesh.rotation, 'y', -Math.PI, Math.PI);
+		rotation.add(world.mesh.rotation, 'z', -Math.PI, Math.PI);
+		
+		world.start();
+	</script>
+</body>
+</html>
