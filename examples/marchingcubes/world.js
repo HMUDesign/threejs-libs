@@ -44,11 +44,11 @@ PROJECT.World.prototype.build = function() {
 	this.add(this.light);
 	
 	var T = Date.now();
-	var geometry = new MarchingCubes(density, new THREE.Vector3(-10,-10,-10), new THREE.Vector3(10,10,10), .125);
+	var geometry = new MarchingCubes(density, new THREE.Vector3(-3,-3,-3), new THREE.Vector3(3,3,3), .05);
 	console.log(Date.now() - T)
 	
 	this.mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xff0000 }));
-	this.mesh.scale.multiplyScalar(.5);
+	this.mesh.scale.multiplyScalar(2);
 	this.mesh.add(new THREE.AxisHelper());
 	this.add(this.mesh);
 	
