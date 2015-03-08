@@ -1,0 +1,36 @@
+
+<html>
+<head>
+	<title>Hatching Glow Shader</title>
+	<link rel="stylesheet" type="text/css" href="../../lib/hmu/style.css">
+	<script type="text/javascript" src="../../lib/three.min.js"></script>
+	
+	<script type="text/javascript" src="ConvolutionShader.js"></script>
+	<script type="text/javascript" src="hatching-glow-shader.js"></script>
+	
+	<!-- Generic vertex shader -->
+	<script id="vs-generic" type="x-shader/x-vertex">
+		varying vec2 vUv;
+		
+		void main() {
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+		}
+	</script>
+	
+	<!-- Render parameter modulated texture fragment shader -->
+	<script id="fs-screen" type="x-shader/x-fragment">
+		varying vec2 vUv;
+		uniform sampler2D tDiffuse;
+		uniform float opacity;
+		
+		void main() {
+			vec4 texel = texture2D( tDiffuse, vUv );
+			gl_FragColor = opacity * texel;
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>
