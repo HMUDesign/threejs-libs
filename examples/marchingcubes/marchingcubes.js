@@ -20,24 +20,33 @@ var MarchingCubes = (function() {
 			for(var h = 0; h < stepH; h++) {
 				for(var d = 0; d < stepD; d++) {
 					// get position of corners
-					var p000 = new THREE.Vector3(w    , h    , d    ).multiplyScalar(resolution).add(start);
-					var p001 = new THREE.Vector3(w    , h    , d + 1).multiplyScalar(resolution).add(start);
-					var p010 = new THREE.Vector3(w    , h + 1, d    ).multiplyScalar(resolution).add(start);
-					var p011 = new THREE.Vector3(w    , h + 1, d + 1).multiplyScalar(resolution).add(start);
-					var p100 = new THREE.Vector3(w + 1, h    , d    ).multiplyScalar(resolution).add(start);
-					var p101 = new THREE.Vector3(w + 1, h    , d + 1).multiplyScalar(resolution).add(start);
-					var p110 = new THREE.Vector3(w + 1, h + 1, d    ).multiplyScalar(resolution).add(start);
-					var p111 = new THREE.Vector3(w + 1, h + 1, d + 1).multiplyScalar(resolution).add(start);
+					var o000 = new THREE.Vector3(w    , h    , d    );
+					var o001 = new THREE.Vector3(w    , h    , d + 1);
+					var o010 = new THREE.Vector3(w    , h + 1, d    );
+					var o011 = new THREE.Vector3(w    , h + 1, d + 1);
+					var o100 = new THREE.Vector3(w + 1, h    , d    );
+					var o101 = new THREE.Vector3(w + 1, h    , d + 1);
+					var o110 = new THREE.Vector3(w + 1, h + 1, d    );
+					var o111 = new THREE.Vector3(w + 1, h + 1, d + 1);
+					
+					var p000 = o000.clone().multiplyScalar(resolution).add(start);
+					var p001 = o001.clone().multiplyScalar(resolution).add(start);
+					var p010 = o010.clone().multiplyScalar(resolution).add(start);
+					var p011 = o011.clone().multiplyScalar(resolution).add(start);
+					var p100 = o100.clone().multiplyScalar(resolution).add(start);
+					var p101 = o101.clone().multiplyScalar(resolution).add(start);
+					var p110 = o110.clone().multiplyScalar(resolution).add(start);
+					var p111 = o111.clone().multiplyScalar(resolution).add(start);
 					
 					// get density at corners
-					var d000 = density(p000);
-					var d001 = density(p001);
-					var d010 = density(p010);
-					var d011 = density(p011);
-					var d100 = density(p100);
-					var d101 = density(p101);
-					var d110 = density(p110);
-					var d111 = density(p111);
+					var d000 = density(p000, o000);
+					var d001 = density(p001, o001);
+					var d010 = density(p010, o010);
+					var d011 = density(p011, o011);
+					var d100 = density(p100, o100);
+					var d101 = density(p101, o101);
+					var d110 = density(p110, o110);
+					var d111 = density(p111, o111);
 					
 					// generate bitmask
 					var bitmask = 0;
@@ -144,7 +153,7 @@ var MarchingCubes = (function() {
 	};
 	
 	// lerp
-	function ilerp(t, a, b) { return a + t * (b - a); }
+	function lerp(t, a, b) { return a + t * (b - a); }
 	// inverse lerp
 	function ilerp(t, a, b) { return (t - a) / (b - a); }
 	

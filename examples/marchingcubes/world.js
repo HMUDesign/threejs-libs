@@ -31,10 +31,10 @@ PROJECT.World.prototype.build = function() {
 	
 	function density(pos) {
 		var density = -pos.y;
+//		var density = - Math.sqrt(Math.pow(pos.x, 2) + Math.pow(pos.y, 2) + Math.pow(pos.z, 2)) + 1.5;
 		
-		density += Noise.sample3tess(pos.x, pos.y, pos.z, 2,2, 2) * 1;
-		
-		density += saturate((0 - pos.y) * 3) * 40;
+		var pos2 = pos.clone().multiplyScalar(1.5);
+		density += Noise.sample3tess(pos2.x, pos2.y, pos2.z, 2,2, 2);
 		
 		return density;
 	}
@@ -44,11 +44,11 @@ PROJECT.World.prototype.build = function() {
 	this.add(this.light);
 	
 	var T = Date.now();
-	var geometry = new MarchingCubes(density, new THREE.Vector3(-3,-3,-3), new THREE.Vector3(3,3,3), .05);
+	var geometry = new MarchingCubes(density, new THREE.Vector3(-2,-2,-2), new THREE.Vector3(2,2,2), 4 / 128);
 	console.log(Date.now() - T)
 	
 	this.mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xff0000 }));
-	this.mesh.scale.multiplyScalar(2);
+	this.mesh.scale.multiplyScalar(1);
 	this.mesh.add(new THREE.AxisHelper());
 	this.add(this.mesh);
 	
