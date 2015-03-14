@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Perlin Noise</title>
+	<script type="text/javascript" src="perlin.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function() {
+			var Noise = new HMU.PerlinNoise(0);
+			
+			var canvas = document.getElementById("map");
+			canvas.width = canvas.height = 512;
+			var context = canvas.getContext('2d');
+			
+			var color0 = [255, 255, 255];
+			var color1 = [255,   0,   0];
+			var color2 = [  0, 255,   0];
+			var color3 = [  0, 0,   255];
+			
+			var z = 0;
+			function draw() {
+				var image = context.createImageData(canvas.width, canvas.height);
+				
+				for(var y = 0; y < canvas.height; y++) {
+					for(var x = 0; x < canvas.width; x++) {
+						var v = Noise.noise3tess(x / 128, y / 128, z / 128, 2,2, 5, 4);
+						v = (v + 1) / 2;
+						
+						var i = y * canvas.width + x;
+						image.data[i * 4 + 0] = Math.floor(v * color0[0]);
+						image.data[i * 4 + 1] = Math.floor(v * color0[1]);
+						image.data[i * 4 + 2] = Math.floor(v * color0[2]);
+						image.data[i * 4 + 3] = 255;
+					}
+				}
+				
+				context.putImageData(image, 0, 0);
+			}
+			
+			requestAnimationFrame(function loop() {
+//				requestAnimationFrame(loop)
+				
+				draw();
+				z += Math.max(canvas.width, canvas.height) / 64;
+			})
+		}
+	</script>
+</head>
+<body>
+
+<canvas id="map"></canvas>
+
+</body>
+</html>
