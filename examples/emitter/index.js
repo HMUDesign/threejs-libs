@@ -8,7 +8,7 @@ world.coin = new THREE.Mesh(
 );
 world.coin.mass = 1;
 
-world.emitter = new HMU.Emitter({
+world.emitter = new HMU.World.Emitter({
 	particle: world.coin,
 	
 	position: new HMU.Option(new THREE.Vector3(0, 0, 0)),

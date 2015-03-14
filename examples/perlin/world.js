@@ -12,6 +12,8 @@ PROJECT.World = function() {
 		this.tick(e.delta);
 	});
 	
+	this.perlin = new HMU.PerlinNoise(0);
+	
 	this.item = new THREE.Mesh(new THREE.IcosahedronGeometry(.05), new THREE.MeshNormalMaterial());
 	
 	this.speed = new THREE.Vector3(0,0,0);
@@ -54,7 +56,7 @@ PROJECT.World.prototype.tick = function(d) {
 		for(var j = 0; j < this.grid[i].length; j++) {
 			var item = this.grid[i][j];
 			item.perlin.add(this.speed.clone().multiplyScalar(d));
-			item.position.z = HMU.Perlin(item.perlin) + 1;
+			item.position.z = this.perlin.noise3(item.perlin.x, item.perlin.y, item.perlin.z) + 1;
 		}
 	}
 }
