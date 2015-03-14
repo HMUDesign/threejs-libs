@@ -27,18 +27,10 @@ PROJECT.World = function() {
 		controls.update(e.delta);
 	});
 	
-	this.load().then(this.build.bind(this));
+	this.build();
 }
 
 PROJECT.World.prototype = Object.create(HMU.World.prototype);
-
-PROJECT.World.prototype.load = function() {
-	var world = this;
-	
-	return Promise.all([
-		MarchingCubes.load(),
-	]);
-}
 
 function saturate(v) {
 	if(v < 0) return 0;
@@ -60,14 +52,10 @@ PROJECT.World.prototype.build = function() {
 	}
 	
 	var T = Date.now();
-	var geometry = new MarchingCubes(density, new THREE.Vector3(-2,-2,-2), new THREE.Vector3(2,2,2), 4 / 128);
+	var geometry = new HMU.MarchingCubes(density, new THREE.Vector3(-2,-2,-2), new THREE.Vector3(2,2,2), 4 / 128);
 	console.log(Date.now() - T)
 	
 	this.mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xff0000, side: THREE.DoubleSide }));
 	this.mesh.scale.multiplyScalar(1);
 	this.add(this.mesh);
-	
-	this.on('update', function(e) {
-//		this.mesh.rotation.y += Math.PI / 8 * e.delta;
-	});
 }
