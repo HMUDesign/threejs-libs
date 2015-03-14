@@ -1,12 +1,12 @@
-
-
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Mobius Strip</title>
 	<link rel="stylesheet" type="text/css" href="../../lib/hmu/style.css">
-	<script type="text/javascript" src="../../lib/dat.gui.min.js"></script>
-	<script type="text/javascript" src="../../lib/stats.min.js"></script>
-	<script type="text/javascript" src="../../lib/three.js"></script>
+	<script type="text/javascript" src="../../vendor/dat.gui.min.js"></script>
+	<script type="text/javascript" src="../../vendor/stats.min.js"></script>
+	<script type="text/javascript" src="../../vendor/three.min.js"></script>
+	
 	<script type="text/javascript" src="../../lib/hmu/world.js"></script>
 </head>
 <body>
@@ -120,8 +120,6 @@
 		rotation.add(world.mesh.rotation, 'x', -Math.PI, Math.PI);
 		rotation.add(world.mesh.rotation, 'y', -Math.PI, Math.PI);
 		rotation.add(world.mesh.rotation, 'z', -Math.PI, Math.PI);
-		
-		world.start();
 	</script>
 </body>
 </html>

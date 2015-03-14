@@ -37,4 +37,4 @@ world.on('update', function(e) {
 	world.emitter.tick(e.delta);
 });
 
-world.renderer.domElement.addEventListener('mousedown', HMU.Emitter.prototype.reset.bind(world.emitter), false );
+world.renderer.domElement.addEventListener('mousedown', HMU.World.Emitter.prototype.reset.bind(world.emitter), false );
