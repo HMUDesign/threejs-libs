@@ -18,7 +18,7 @@
 				
 				for(var y = 0; y < canvas.height; y++) {
 					for(var x = 0; x < canvas.width; x++) {
-						var v = (Noise.noise3(x / 128, y / 128, z / 128, 4) + 1) / 2;
+						var v = (Noise.sample3(x / 128, y / 128, z / 128, 4) + 1) / 2;
 						
 						var i = y * canvas.width + x;
 						image.data[i * 4 + 0] = Math.floor(v * 255);

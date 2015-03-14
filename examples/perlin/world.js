@@ -56,7 +56,7 @@ PROJECT.World.prototype.tick = function(d) {
 		for(var j = 0; j < this.grid[i].length; j++) {
 			var item = this.grid[i][j];
 			item.perlin.add(this.speed.clone().multiplyScalar(d));
-			item.position.z = this.perlin.noise3(item.perlin.x, item.perlin.y, item.perlin.z) + 1;
+			item.position.z = this.perlin.sample3(item.perlin.x, item.perlin.y, item.perlin.z) + 1;
 		}
 	}
 }

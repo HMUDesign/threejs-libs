@@ -47,7 +47,7 @@ function saturate(v) {
 }
 
 PROJECT.World.prototype.build = function() {
-	var Noise = new PerlinNoise(0);
+	var Noise = new HMU.PerlinNoise(0);
 	
 	function density(pos) {
 //		var density = - pos.y;
