@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bezier</title>
+	<script type="text/javascript" src="bezier.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function() {
+			var canvas = document.getElementById('map');
+			canvas.width = canvas.height = 512;
+			var context = canvas.getContext('2d');
+			
+			function draw() {
+				context.beginPath();
+				
+				var Curve2X = new HMU.Bezier([0, .14925557853149885791801426595546, .75, 1]);
+				var Curve2Y = new HMU.Bezier([0, 1.4925557853149885791801426595546, 1, 1]);
+				
+				var N = 128;
+				for(var t = 0; t <= N; t++) {
+					var valueX = Curve2X.eval(t / N);
+					var valueY = Curve2Y.eval(t / N);
+					
+					var x = canvas.width  * t / N;
+					var y = canvas.height * (1 - valueY * .5);
+					
+					if(t) context.lineTo(x,y);
+					else  context.moveTo(x,y);
+				}
+				
+				context.stroke();
+			}
+			
+			draw();
+		}
+	</script>
+</head>
+<body>
+
+<canvas id="map"></canvas>
+
+</body>
+</html>
