@@ -1,7 +1,7 @@
 var MarchingCubes = (function() {
 	var loader;
 	
-	MarchingCubes = function(density, start, end, resolution) {
+	var MarchingCubes = function(density, start, end, resolution) {
 		THREE.Geometry.call(this);
 		
 		var width  = end.x - start.x;
