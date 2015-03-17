@@ -12727,6 +12727,52 @@ THREE.ObjectLoader.prototype = {
 
 				}
 
+				if ( data.bumpMap ) {
+
+					if ( !textures[data.bumpMap] ) {
+						console.warn( 'THREE.ObjectLoader: Undefined texture', data.bumpMap );
+					}
+
+					material.bumpMap = textures[data.bumpMap];
+					material.bumpScale = data.bumpScale;
+
+				}
+
+				if ( data.normalMap ) {
+
+					if ( !textures[data.normalMap] ) {
+						console.warn( 'THREE.ObjectLoader: Undefined texture', data.normalMap );
+					}
+
+					material.normalMap = textures[data.normalMap];
+					material.normalScale.copy(data.normalScale);
+
+				}
+
+				if ( data.alphaMap ) {
+
+					if ( !textures[data.alphaMap] ) {
+						console.warn( 'THREE.ObjectLoader: Undefined texture', data.alphaMap );
+					}
+
+					material.alphaMap = textures[data.alphaMap];
+
+				}
+
+				if ( data.materials ) {
+
+					var sub_materials = this.parseMaterials(data.materials, textures);
+
+					material.materials = [];
+
+					for(var j = 0, m = data.materials.length; j < m; j ++) {
+
+						material.materials[j] = sub_materials[data.materials[j].uuid];
+
+					}
+
+				}
+
 				materials[ data.uuid ] = material;
 
 			}
@@ -20896,7 +20942,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		}
 
-		if ( scene.overrideMaterial ) {
+		if ( scene.overrideMaterial && typeof scene.overrideMaterial !== 'function' ) {
 
 			var material = scene.overrideMaterial;
 
@@ -20911,7 +20957,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		} else {
 
-			var material = null;
+			var material = scene.overrideMaterial || null;
 
 			// opaque pass (front-to-back order)
 
@@ -21025,7 +21071,11 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 			setupMatrices( object, camera );
 
-			if ( overrideMaterial ) {
+			if ( typeof overrideMaterial === 'function' ) {
+
+				material = overrideMaterial(webglObject.material);
+
+			} else if ( overrideMaterial ) {
 
 				material = overrideMaterial;
 
