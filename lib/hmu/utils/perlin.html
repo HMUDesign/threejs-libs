@@ -6,7 +6,7 @@
 	
 	<script type="text/javascript">
 		window.onload = function() {
-			var Noise = new HMU.PerlinNoise(0);
+			var noise = new HMU.PerlinNoise(0);
 			
 			var canvas = document.getElementById("map");
 			canvas.width = canvas.height = 512;
@@ -18,7 +18,7 @@
 				
 				for(var y = 0; y < canvas.height; y++) {
 					for(var x = 0; x < canvas.width; x++) {
-						var v = (Noise.sample3(x / 128, y / 128, z / 128, 4) + 1) / 2;
+						var v = (noise.sample3(x / 128, y / 128, z / 128, 4) + 1) / 2;
 						
 						var i = y * canvas.width + x;
 						image.data[i * 4 + 0] = Math.floor(v * 255);
@@ -35,6 +35,7 @@
 //				requestAnimationFrame(loop)
 				
 				draw();
+				
 				z += Math.max(canvas.width, canvas.height) / 64;
 			})
 		}
