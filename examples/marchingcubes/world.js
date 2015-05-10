@@ -8,6 +8,7 @@ PROJECT.World = function() {
 	
 	this.camera.lookAt(this.scene.position);
 	
+/*
 	var controls = new THREE.FlyControls(this.camera);
 	
 	controls.movementSpeed = 2;
@@ -15,6 +16,10 @@ PROJECT.World = function() {
 	controls.rollSpeed = Math.PI / 4;
 	controls.autoForward = false;
 	controls.dragToLook = false;
+	this.on('update', function(e) {
+		controls.update(e.delta);
+	});
+*/
 	
 	this.camera.light = new THREE.PointLight(0xffffff, 1, 1);
 	this.camera.add(this.camera.light);
@@ -23,9 +28,6 @@ PROJECT.World = function() {
 	this.light.position.set(0, .75, 1);
 	this.add(this.light);
 	
-	this.on('update', function(e) {
-		controls.update(e.delta);
-	});
 	
 	this.build();
 }
