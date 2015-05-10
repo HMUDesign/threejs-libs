@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simplex Noise</title>
+	<script type="text/javascript" src="simplex.js"></script>
+	
+	<script type="text/javascript">
+		window.onload = function() {
+			var noise = new HMU.SimplexNoise(0);
+			
+			var canvas = document.getElementById("map");
+			canvas.width = canvas.height = 512;
+			var context = canvas.getContext('2d');
+			
+			var z = 0;
+			function draw() {
+				var image = context.createImageData(canvas.width, canvas.height);
+				
+				for(var y = 0; y < canvas.height; y++) {
+					for(var x = 0; x < canvas.width; x++) {
+						var v = (noise.sample2(x / 128, y / 128, z / 128) + 1) / 2;
+						
+						var i = y * canvas.width + x;
+						image.data[i * 4 + 0] = Math.floor(v * 255);
+						image.data[i * 4 + 1] = Math.floor(v * 255);
+						image.data[i * 4 + 2] = Math.floor(v * 255);
+						image.data[i * 4 + 3] = 255;
+					}
+				}
+				
+				context.putImageData(image, 0, 0);
+			}
+			
+			requestAnimationFrame(function loop() {
+//				requestAnimationFrame(loop)
+				
+				draw();
+				
+				z += Math.max(canvas.width, canvas.height) / 64;
+			})
+		}
+	</script>
+</head>
+<body>
+
+<canvas id="map"></canvas>
+
+</body>
+</html>
