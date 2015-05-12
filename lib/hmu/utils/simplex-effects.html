@@ -18,7 +18,7 @@
 				
 				for(var y = 0; y < canvas.height; y++) {
 					for(var x = 0; x < canvas.width; x++) {
-						var v = (noise.sample3(x / 128, y / 128, z / 128) + 1) / 2;
+						var v = sinsumabs(x / canvas.width, y / canvas.height, z / Math.max(canvas.width, canvas.height));
 						
 						var i = y * canvas.width + x;
 						image.data[i * 4 + 0] = Math.floor(v * 255);
@@ -38,6 +38,38 @@
 				
 				z += 4;
 			});
+			
+			function classic(x, y, z) {
+				return (noise.sample3(x, y, z) + 1) / 2;
+			}
+			
+			function sinsumabs(x, y, z) {
+				var x0 = (x - .5) * 5;
+				var y0 = (y - .5) * 5;
+				
+				x *= 8;
+				y *= 8;
+				z *= 8;
+				
+				var a = 2;
+				var b = 2;
+				
+				var sum = 0;
+				
+				var scale = 1;
+				
+				for(var i = 0; i < 1; i++) {
+					sum += Math.abs(noise.sample3(x, y, z) / scale);
+					
+					x *= a;
+					y *= a;
+					z *= a;
+					
+					scale *= b;
+				}
+				
+				return (Math.sin(Math.sqrt(x0 * x0 + y0 * y0) * 3 + sum / 2) + 1) / 2;
+			}
 		}
 	</script>
 </head>
